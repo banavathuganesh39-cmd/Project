@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-like Interface</title>
+    <style>
+        body {
+            background: #f7f7f8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            max-width: 700px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .chat-header {
+            padding: 1rem 2rem;
+            background: #10a37f;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .message {
+            max-width: 80%;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+        .user {
+            align-self: flex-end;
+            background: #e6f7ff;
+            color: #222;
+        }
+        .assistant {
+            align-self: flex-start;
+            background: #f3f3f3;
+            color: #222;
+        }
+        .chat-input {
+            display: flex;
+            padding: 1rem 2rem;
+            background: #fafafa;
+            border-top: 1px solid #eee;
+        }
+        .chat-input textarea {
+            flex: 1;
+            resize: none;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 0.7rem;
+            font-size: 1rem;
+            min-height: 40px;
+            max-height: 120px;
+        }
+        .chat-input button {
+            margin-left: 1rem;
+            background: #10a37f;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .chat-input button:hover {
+            background: #0e8c6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">ChatGPT-like Chat</div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <form class="chat-input" id="chatForm">
+            <textarea id="userInput" placeholder="Type your message..." required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const chatForm = document.getElementById('chatForm');
+        const userInput = document.getElementById('userInput');
+
+        function appendMessage(role, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${role}`;
+            msgDiv.textContent = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userText = userInput.value.trim();
+            if (!userText) return;
+            appendMessage('user', userText);
+            userInput.value = '';
+            // Simulate assistant response
+            setTimeout(() => {
+                appendMessage('assistant', 'This is a sample response. (Integrate with backend for real answers)');
+            }, 700);
+        });
+    </script>
+</body>
+</html>
